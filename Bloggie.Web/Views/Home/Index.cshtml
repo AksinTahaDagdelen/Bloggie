@@ -1,0 +1,64 @@
+﻿@model Bloggie.Web.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container col-xxl-8 px-4 py-5">
+
+    <div class="row d-flex align-items-center g-5 py-5 text-bg">
+        <div class="col-md-12 col-lg-6">
+            <h1 class="display-5 fw-bold mb-3">Bloggie - The Dev Blog</h1>
+            <p>Bloggie is project that we used MVC and EFCore 7. We also use JS,HTML,CSS,ASP.NET Coe. Want to read the latest dev articles ? Join the bloggie app and get weekley blogs...</p>
+
+        </div>
+        <div class="col-12 col-lg-6 ">
+            <img class="d-block mx-lg-auto img-fluid" width="300" src="https://images.pexels.com/photos/733856/pexels-photo-733856.jpeg?auto=compress&cs=tinysrgb&w=600"/>
+        </div>
+    </div>
+    <div class="container mb-3  ">
+        <div class="row justify-content-center mx-auto text-center ">
+            <div class="col-4 d-flex pt-3 text-center">
+                <h6 class="m-2">Tags</h6>
+                @if (Model != null && Model.BlogPosts.Any())
+                {
+                    foreach (var tag in Model.Tags)
+                    {
+                        <span class="badge bg-dark me-1  ">@tag.Name</span>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @if (Model !=null && Model.BlogPosts.Any())
+                {
+                    foreach (var blogPost in Model.BlogPosts)
+                    {
+                        <div class="mb-5 mg-light box-shadow">
+                            <img src="@blogPost.FeaturedImageUrl" alt="@blogPost.Heading" class="mb-2 d-block img-fluid"/>
+                            <h2 class="mb-4">@blogPost.Heading</h2>
+                            <p>Author : @blogPost.Author  <br/>
+                                Published Date : @blogPost.PubishedDate.ToShortDateString()</p>
+
+                                <p class="mb-4">
+                                    @foreach (var tag in blogPost.Tags)
+                                {
+                                    <span class="badge bg-primary me-1 ">@tag.Name</span>
+                                }
+                                </p>
+                            <p class="mb-5">@blogPost.ShortDescription<p>
+                            <a class="btn btn-dark mb-5" asp-controller="Blogs" asp-action="Index" asp-route-urlHandle="@blogPost.UrlHandle">Read More</a>
+
+                          </div>
+                    }
+                }
+
+        </div>
+
+    </div>
+    
+</div>
